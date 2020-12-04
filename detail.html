@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <span></span>
+    <p></p>
+
+    <script>
+        // fetch("http://localhost:8083/home").then(response => {
+        //     return response.json()
+        // }).then(res => {
+        //     console.log(res.data)
+        // })
+        window.onload = function() {
+                var num = localStorage.getItem("obj")
+                console.log(num)
+                var p = document.querySelector("p")
+                axios.get("http://localhost:3000/detail/" + num).then(res => {
+                    console.log(res.data.data)
+                    p.innerHTML = res.data.data[0].title
+                })
+            }
+            // window.onload=function() {
+            //     var p=document.querySelector("p")
+            //     var span=document.querySelector("span")
+
+        //     p.innerHTML=JSON.parse(localStorage.getItem("obj")).content
+        //     span.innerHTML=JSON.parse(localStorage.getItem("obj")).title
+        // }
+    </script>
+</body>
+
+</html>

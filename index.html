@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <title>Document</title>
+</head>
+
+<body>
+    <ul id="app" onclick="jump()"></ul>
+    <script>
+        var app = document.getElementById("app")
+            /*
+                axios传递多参数数据两种形式 
+                    1 直接在接口后边使用?参数名1=参数值&参数名2=参数值
+                    2 在axios请求的api中使用
+                    get请求传参形式
+                    {
+                        params: {
+                            参数名1:参数值,
+                            参数名2:参数值
+                        }
+                    }
+
+                    post请求传参形式
+                    {
+                        参数名1:参数值,
+                        参数名2:参数值
+                    }
+            */
+        axios.get("http://localhost:3000/list", {
+            params: {
+                page: 2,
+                limit: 5
+            }
+        }).then(res => {
+            console.log(res.data.data)
+            var str = ""
+            for (var i = 0; i < res.data.data.length; i++) {
+                str += `
+                    <li data-text='${res.data.data[i].id}'>${res.data.data[i].title}</li>
+                `
+            }
+            app.innerHTML = str
+        }).catch(err => {
+            console.log(err)
+        })
+
+        function jump() {
+            console.log(event.target.dataset.text)
+            localStorage.setItem("obj", event.target.dataset.text)
+            window.location.href = "detail.html"
+        }
+    </script>
+</body>
+
+</html>
